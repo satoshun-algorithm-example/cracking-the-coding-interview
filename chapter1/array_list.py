@@ -10,6 +10,15 @@ class ArrayList:
         self.element_data[self.size] = e
         self.size += 1
 
+    def add_with_index(self, index, e):
+        self._ensure_capacity(self.size + 1)
+
+        for i in range(self.size - index):
+            self.element_data[self.size - i] = self.element_data[self.size - i - 1]
+        self.element_data[index] = e
+
+        self.size += 1
+
     def get(self, index):
         return self.element_data[index]
 
@@ -28,6 +37,17 @@ l = ArrayList(1)
 l.add('test')
 assert l.get(0) == 'test'
 
-l.add('test2')
+l.add('test3')
+assert l.get(0) == 'test'
+assert l.get(1) == 'test3'
+
+l.add_with_index(1, 'test2')
 assert l.get(0) == 'test'
 assert l.get(1) == 'test2'
+assert l.get(2) == 'test3'
+
+l.add_with_index(0, 'test0')
+assert l.get(0) == 'test0'
+assert l.get(1) == 'test'
+assert l.get(2) == 'test2'
+assert l.get(3) == 'test3'
