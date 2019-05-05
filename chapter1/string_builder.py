@@ -50,8 +50,13 @@ class StringBuilder:
         self.value[self.count+3] = 'e'
         self.count += 4
 
-    def _ensureCapacityInternal(self, size):
-        pass
+    def _ensureCapacityInternal(self, minimum_capacity):
+        if minimum_capacity - len(self.value) > 0:
+            new_size = minimum_capacity * 2
+            new_array = ['' for _ in range(new_size)]
+            for i, v in enumerate(self.value):
+                new_array[i] = v
+            self.value = new_array
 
     def toString(self):
         print(self.value)
@@ -105,7 +110,7 @@ class Int:
         if sign != 0:
             dst[index] = sign
 
-builder = StringBuilder(32)
+builder = StringBuilder(20)
 
 builder.append(None)
 assert builder.toString() == 'none'
@@ -118,3 +123,6 @@ assert builder.toString() == 'none test 123'
 
 builder.append(-987)
 assert builder.toString() == 'none test 123-987'
+
+builder.append(" hoge")
+assert builder.toString() == 'none test 123-987 hoge'
