@@ -52,6 +52,17 @@ func palindrome2(s string) bool {
 	return true
 }
 
+func palindrome3(s string) bool {
+	var index = 0
+	for _, c := range s {
+		var i = uint8(c - 'a')
+		var j = 1 << i
+		index ^= j
+	}
+
+	return (index & (index - 1)) == 0
+}
+
 func main() {
 	{
 		fmt.Println(palindrome("tactcoa") == true)
@@ -60,5 +71,9 @@ func main() {
 	{
 		fmt.Println(palindrome2("tactcoa") == true)
 		fmt.Println(palindrome2("tactco") == false)
+	}
+	{
+		fmt.Println(palindrome3("tactcoa") == true)
+		fmt.Println(palindrome3("tactco") == false)
 	}
 }
