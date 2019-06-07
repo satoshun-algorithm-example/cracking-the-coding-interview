@@ -51,3 +51,10 @@ func main() {
 		)
 	}
 }
+
+func a() (x, y int) {
+	if true {
+		return 10, 10
+	}
+	return
+}
